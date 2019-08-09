@@ -10,22 +10,22 @@ module Enumerable
   def my_select
     new_array = []
     self.my_each { |i| new_array << i if yield(i) }
-    return new_array
+    new_array
   end
 
   def my_all?
     self.my_each { |i| return false if !yield(i) }
-    return true
+    true
   end
 
   def my_any?
     self.my_each { |i| return true if yield(i) }
-    return false
+    false
   end
 
   def my_none?
     self.my_each { |i| return false if yield(i) }
-    return true
+    true
   end
 
   def my_count(item = nil)
@@ -37,7 +37,7 @@ module Enumerable
     else
       count = self.length
     end
-    return count
+    count
   end
 
   def my_map(proc = nil)
@@ -49,12 +49,12 @@ module Enumerable
     else
       self.my_each { |i| new_array << proc.call(i) }
     end
-    return new_array
+    new_array
   end
 
   def my_inject(result = 0)
     self.my_each { |i| result = yield(result, i) }
-    return result
+    result
   end
 end
 
