@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#Enumerable module
+# Enumerable module
 module Enumerable
   def my_each
     self.length.times { |i| yield(self[i]) }
