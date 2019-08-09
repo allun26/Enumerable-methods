@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Enumerable
   def my_each
     self.length.times { |i| yield(self[i]) }
@@ -14,7 +16,7 @@ module Enumerable
   end
 
   def my_all?
-    self.my_each { |i| return false if !yield(i) }
+    self.my_each { |i| return false unless yield(i) }
     true
   end
 
@@ -30,7 +32,7 @@ module Enumerable
 
   def my_count(item = nil)
     count = 0
-    if item != nil
+    if !item.nil?
       self.my_each { |i| count += 1 if i == item }
     elsif block_given?
       self.my_each { |i| count += 1 if yield(i) }
@@ -44,7 +46,7 @@ module Enumerable
     new_array = []
     if proc.nil?
       self.my_each { |i| new_array << yield(i) }
-    elsif proc != nil && block_given?
+    elsif !proc.nil? && block_given?
       self.my_each { |i| new_array << proc.call(i) }
     else
       self.my_each { |i| new_array << proc.call(i) }
