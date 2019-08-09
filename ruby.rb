@@ -40,27 +40,41 @@ module Enumerable
         return count
     end
 
-    def my_map
+    def my_map(proc = nil)
         new_array = []
-        self.my_each {|i| new_array << yield(i)}
+        if proc.nil?
+            self.my_each {|i| new_array << yield(i)}
+        elsif proc != nil && block_given?
+            self.my_each {|i| new_array << proc.call(i)}
+        else
+            self.my_each {|i| new_array << proc.call(i)}
+        end
         return new_array
     end
 
-    def my_inject
-        result = 0
+    def my_inject(result = 0)
         self.my_each {|i|  result = yield(result, i)}
         return result  
     end
 end
 
+def multiply_els(array)
+    array.my_inject(1) {|sum, i| sum * i}
+end
 
 
 
 
+p = Proc.new { |x| x + 1 }
 
 
-arr = [1,2,1,1]
 
-l = arr.my_inject {|s,i| s + i}
+arr = [1,2,3,4]
+
+l = arr.my_map(&p) #{|s| s + 1}
+
+#l = arr.my_inject {|s,i| s + i}
+
+#l = multiply_els(arr)
 
 print l
